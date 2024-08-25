@@ -13,6 +13,7 @@ function App() {
   const [alphabets,setAlpha]=useState([]);
   const [numbers,setNum]=useState([]);
   const [highestLowercase,setHLA]=useState([]);
+  const [email,setEmail]=useState();
 
   const handleInputChange = (e) => {
     const input = e.target.value;
@@ -30,12 +31,13 @@ function App() {
   const handleSubmit = () => {
     if (isValidJson) {
       console.log('Valid JSON:', parsedData);
-      Axios.post("http://localhost:4000/bhfl",parsedData)
+      Axios.post("https://bajajbackend1.onrender.com/bhfl",parsedData)
       .then((res)=>{
         console.log(res.data);
         setNum(res.data.numbers);
         setAlpha(res.data.alphabets);
         setHLA(res.data.highest_lowercase_alphabet);
+        setEmail(res.data.email);
         console.log(res.data.is_success);
       })
       .catch((err)=>console.log(err))
@@ -69,7 +71,11 @@ function App() {
         Submit
       </button>
       {showDropdown && (
+        
         <div style={{ marginTop: '20px' }}>
+          <div>  Dharmana Leela Sumanth </div>
+          <div>  21BCE9002 </div>
+          <div>  {email} </div>
           <Select
             isMulti
             options={options}
@@ -81,6 +87,8 @@ function App() {
 
       {selectedOptions.length > 0 && (
         <div style={{ marginTop: '20px' }}>
+          
+          
           {selectedOptions.some(option => option.value === 'alphabets') && (
             <div>
               <h3>Alphabets:</h3>
